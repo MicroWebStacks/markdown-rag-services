@@ -1,2 +1,2 @@
-# markdown-service
-markdown data parser and website builder
+# Applications Services
+collection of services for website building and data management
