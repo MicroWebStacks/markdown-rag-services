@@ -1,7 +1,0 @@
-services:
-  markdown:
-    build: .
-    volumes:
-      - ../cache/fetch:/fetch
-      - ../cache/process:/process
-      - ../cache/web:/web

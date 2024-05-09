@@ -6,7 +6,7 @@ def on_connect(client, userdata, flags, rc):
     for action in actions:
         client.subscribe(action["topic"])
     if(status_topic != ""):
-        client.publish(status_topic,"up")
+        client.publish(status_topic,"connected")
 
 def on_message(client, userdata, msg):
     print(f"Message received on {msg.topic}")
@@ -28,6 +28,7 @@ def start():
 def set_status_topic(topic):
     global status_topic
     status_topic = topic
+    client.will_set(status_topic, "disconnected", qos=2)
     return
 
 def add_action(topic,function):
@@ -44,9 +45,9 @@ def publish(topic, data):
 # Constants
 BROKER = 'host.docker.internal'
 PORT = 1883
-CACHE_PATH = "/cache"
 
 client = mqtt.Client()
+
 client.on_connect = on_connect
 client.on_message = on_message
 
