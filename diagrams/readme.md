@@ -38,3 +38,4 @@ Example usage, for more details see https://docs.kroki.io/kroki/setup/usage/
 * viewer can use window current location instead of hardcoded url
 * with https, client requests to http will no longer work
 * example with tls certificate
+* check and use MERMAID_INK

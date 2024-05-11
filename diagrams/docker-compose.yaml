@@ -1,9 +1,10 @@
-version: '3.8'
 services:
   nginx:
     build: ./nginx
     ports:
       - 443:443
+      - 4040:4040
+      - 7040:7040
     depends_on:
       - mermaid-live-editor
       - viewer
