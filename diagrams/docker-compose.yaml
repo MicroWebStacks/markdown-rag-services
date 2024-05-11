@@ -1,5 +1,12 @@
 version: '3.8'
 services:
+  nginx:
+    build: ./nginx
+    ports:
+      - 443:443
+    depends_on:
+      - mermaid-live-editor
+      - viewer
   mermaid-live-editor:
     image: ghcr.io/mermaid-js/mermaid-live-editor
     environment:
