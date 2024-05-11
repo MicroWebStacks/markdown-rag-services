@@ -14,6 +14,7 @@ services:
       - KROKI_BLOCKDIAG_HOST=blockdiag
       - KROKI_MERMAID_HOST=mermaid
       - KROKI_BPMN_HOST=bpmn
+      - KROKI_DIAGRAMSNET_HOST=diagramsnet
     depends_on:
       - blockdiag
       - mermaid
@@ -26,3 +27,10 @@ services:
     image: yuzutech/kroki-bpmn
   diagramsnet:
     image: yuzutech/kroki-diagramsnet
+  viewer:
+    build:
+      context: ./viewer
+      args:
+        KROKI_RENDERER_URL: http://localhost:7000/
+    ports:
+      - 9000:80

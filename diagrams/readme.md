@@ -17,7 +17,8 @@ target engines
 given that kroki has the same goal of wrapping multiple diagram generators engines, focus will be on kroki integration
 
 # REAS API
-Post to
+
+Example usage, for more details see https://docs.kroki.io/kroki/setup/usage/
 
 ```js
     const response = await fetch("http://localhost:7000/graphviz/svg",{
@@ -28,3 +29,7 @@ Post to
         },
       })
 ```
+
+# Other diagram services
+* https://tldraw.dev/
+* https://excalidraw.com/
