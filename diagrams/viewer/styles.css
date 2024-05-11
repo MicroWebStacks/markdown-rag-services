@@ -1,0 +1,23 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+
+
+#diagramSelector {
+    margin-bottom: 20px;
+}
+
+button {
+    cursor: pointer;
+}
+
+main {
+    display:flex;
+    flex-wrap: wrap;
+}
+
+#diagramSource{
+    min-width: 500px;
+    min-height: 200px;
+}
