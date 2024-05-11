@@ -8,6 +8,7 @@ services:
     depends_on:
       - mermaid-live-editor
       - viewer
+      - kroki
   mermaid-live-editor:
     image: ghcr.io/mermaid-js/mermaid-live-editor
     environment:
@@ -39,6 +40,8 @@ services:
     build:
       context: ./viewer
       args:
-        KROKI_RENDERER_URL: http://localhost:7000/
+        KROKI_RENDERER_URL: https://localhost:7040/
     ports:
       - 9000:80
+    depends_on:
+      - kroki
