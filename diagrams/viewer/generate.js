@@ -20,7 +20,7 @@ function fixSvgSize(){
 async function generateDiagram(){
     const diagramSelector = document.getElementById('diagramSelector').value;
     const diagramSource = document.getElementById('diagramSource').value;
-    const url = baseURL + diagramSelector + '/svg/'
+    const url = baseURL +'/'+ diagramSelector + '/svg/'
     console.log(`POST @ ${url}`)
     const response = await fetch(url,{
         method: 'POST',
@@ -42,11 +42,17 @@ async function generateDiagram(){
     fixSvgSize()
 }
 
-function updateExample(){
+async function updateExample(){
     let diagSelector = document.getElementById("diagramSelector")
+    const format = diagSelector.value
     let textarea = document.getElementById("diagramSource")
-    //console.log(diagSelector.value)
-    textarea.value = examples[diagSelector.value]
+    const selectedOption = diagSelector.options[diagSelector.selectedIndex];
+    const filename = selectedOption.getAttribute('data-file')
+    console.log(window.location.href +'examples/'+ filename)
+    document.getElementById("filename").innerText = filename
+    document.getElementById("format").innerText = format
+    const response = await fetch(window.location.href +'examples/'+ filename)
+    textarea.value = await response.text()
     generateDiagram()
 }
 
@@ -57,17 +63,19 @@ function export_svg(){
     const svg_str = s.serializeToString(svg_element);
     var blob = new Blob([svg_str], {type: 'image/svg+xml'});
     let diagSelector = document.getElementById("diagramSelector")
-    saveAs(blob,`${diagSelector.value}`);
+    const selectedOption = diagSelector.options[diagSelector.selectedIndex];
+    const filename = selectedOption.getAttribute('data-file') + ".svg"
+    saveAs(blob,filename);
 }
 
 function init(){
     let generate = document.getElementById("generate")
     generate.onclick = generateDiagram
     let diagSelector = document.getElementById("diagramSelector")
-    diagSelector.onchange = updateExample
-    updateExample()
     let export_button = document.getElementById("save")
     export_button.onclick = export_svg
+    diagSelector.onchange = updateExample
+    updateExample()
 
 }
 

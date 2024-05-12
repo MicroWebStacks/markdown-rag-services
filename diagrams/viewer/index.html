@@ -6,27 +6,38 @@
 </head>
 <body>
     <header>
-        <select id="diagramSelector">
-            <option value="mermaid">Mermaid</option>
-            <option value="blockdiag">Block Diagram</option>
-            <option value="seqdiag">Seqquence Diagram</option>
-            <option value="actdiag">Activity Diagram</option>
-            <option value="nwdiag">Network Diagram</option>
-            <option value="packetdiag">Packet diagram</option>
-            <option value="rackdiag">Rack diagram</option>
-            <option value="graphviz">GraphViz</option>
-            <option value="pikchr">Commit Graph</option>
-            <option value="erd">Entity Relationship Diagram</option>
-            <option value="vegalite">Vega-Lite</option>
-            <option value="nomnoml">Nomnoml</option>
-            <option value="plantuml">PlantUML</option>
-            <option value="bytefield">Bytefield</option>
-            <option value="wavedrom">Digital Timing Diagram</option>
-            <option value="diagramsnet">DrawIO Diagram</option>
-            <!-- Add other diagram types as needed -->
-        </select>
-        <button id="generate">Generate Diagram</button>
-        <button id="save">Export SVG</button>
+        <div class="header top">
+            <select id="diagramSelector">
+                <option value="graphviz"    data-file="unix.dot">GraphViz</option>
+                <option value="nwdiag"      data-file="network.diag">Network Diagram</option>
+                <option value="packetdiag"  data-file="packet.diag">Packet diagram</option>
+                <option value="bytefield"   data-file="bytefield.edn">Bytefield</option>
+                <option value="wavedrom"    data-file="wavedrom.json5">Digital Timing Diagram</option>
+                <option value="rackdiag"    data-file="rack.diag">Rack diagram</option>
+                <option value="wireviz"    data-file="wireviz.yaml">Wiring System</option>
+                <option value="vegalite"    data-file="vegalite.json">Vega-Lite</option>
+                <option value="mermaid"     data-file="contribute.mmd">Mermaid</option>
+                <option value="blockdiag"   data-file="kroki.diag">Block Diagram</option>
+                <option value="seqdiag"     data-file="sequence.diag">Seqquence Diagram</option>
+                <option value="actdiag"     data-file="actions.diag">Activity Diagram</option>
+                <option value="pikchr"      data-file="commit.pikchr">Pikchr Commit Graph</option>
+                <option value="pikchr"      data-file="syntax.pikchr">Pikchr Syntax diagram</option>
+                <option value="erd"         data-file="schema.erd">Entity Relationship Diagram</option>
+                <option value="nomnoml"     data-file="pirate.nomnoml">Nomnoml</option>
+                <option value="plantuml"    data-file="sequence.puml">PlantUML Sequence</option>
+                <option value="plantuml"    data-file="work-breakout.puml">PlantUML Work Breakout</option>
+                <option value="plantuml"    data-file="mindmap.puml">PlantUML Mind Map</option>
+                <option value="diagramsnet" data-file="diagram.drawio">DrawIO Diagram</option>
+                <option value="umlet" data-file="umlet.uxf">UMlet State Machine</option>
+                <!-- Add other diagram types as needed -->
+            </select>
+            <button id="generate">Generate Diagram</button>
+            <button id="save">Export SVG</button>
+        </div>
+        <div class="header bottom">
+            <div id="format"></div>
+            <div id="filename"></div>
+        </div>
     </header>
     <main>
         <textarea id="diagramSource" ></textarea>
@@ -34,7 +45,6 @@
     </main>
     <script src="./libs/FileSaver.js"></script>
     <script src="config.js"></script>
-    <script src="examples.js"></script>
     <script src="generate.js"></script>
 </body>
 </html>

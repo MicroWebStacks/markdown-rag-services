@@ -33,7 +33,3 @@ Example usage, for more details see https://docs.kroki.io/kroki/setup/usage/
 # Other diagram services
 * https://tldraw.dev/
 * https://excalidraw.com/
-
-# TODO
-* viewer can use window current location instead of hardcoded url
-* check and use MERMAID_INK
