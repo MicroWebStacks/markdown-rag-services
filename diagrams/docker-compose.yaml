@@ -1,6 +1,8 @@
 services:
   nginx:
     build: ./nginx
+    volumes:
+      - ./nginx/certs:/etc/nginx/certs
     ports:
       - 443:443
       - 4040:4040
