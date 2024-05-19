@@ -45,9 +45,9 @@ example
   * mermaid
   * bpmn
   * diagramsnet
-* typesense : instance search engine
+* typesense : instant search engine
 * search : service that collects elements from documents and injects them in the typesense database.
-* llm : embeddings generation and retrieval augmented generation
+* llm : embeddings and retrieval augmented generation
 
 # Development
 all services can also run without containers, as the directories mapping respect the same relative path usage outside and inside the containers.
