@@ -21,9 +21,9 @@ services:
   markdown:
     build: ./markdown
     volumes:
-      - ./cache/fetch:/cache/fetch
-      - ./cache/process:/cache/process
-      - ./cache/web:/cache/web
+      - ./cache/fetch:/fetch
+      - ./cache/process:/process
+      - ./cache/web:/web
       - ./common/utils:/common/utils
     environment:
       - BROKER=mosquitto
@@ -52,7 +52,10 @@ services:
     build: ./runner
     volumes:
       - ./workflow.yaml:/app/workflow.yaml
+    environment:
+      - BROKER=mosquitto
     depends_on:
+      - mosquitto
       - fetcher
   typesense:
     image: typesense/typesense:26.0

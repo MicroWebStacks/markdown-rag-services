@@ -6,7 +6,7 @@
   resource: test-website
 - action: markdown/build
   resource: test-website
-  path: fetch/test-website/content
+  path: /fetch/test-website/content
 - action: search/collect
   resource: test-website
 - action: llm/collect

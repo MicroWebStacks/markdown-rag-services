@@ -20,9 +20,9 @@ def build_website(resource,path):
     try:
         original_dir = os.getcwd()
         os.chdir("/builder")
-        os.environ['OUT_DIR']       = f'../cache/web/{resource}'
-        os.environ['STRUCTURE']     = f'../cache/process/{resource}/structure'
-        os.environ['CONTENT']       = join("../cache",path)
+        os.environ['OUT_DIR']       = f'/web/{resource}'
+        os.environ['STRUCTURE']     = f'/process/{resource}/structure'
+        os.environ['CONTENT']       = path
         os.environ['PUBLIC_BASE']   = ''
         subprocess.run("pnpm run build", shell=True, check=True)
         os.chdir(original_dir)
