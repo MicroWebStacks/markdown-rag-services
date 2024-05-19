@@ -1,10 +1,19 @@
 # Markdown RAG Services
-markdown parser and llm embeddings for a website generator with instant search and retrieval augmented generation.
+understand the structure of markdown and its elements (tables, diagrams,...) for search and retrieval augmented generation.
 
 # Usage
 
 ```shell
 docker compose up -d
+```
+
+or one by one
+```shell
+docker compose up -d mosquitto
+docker compose up -d fetcher
+docker compose up -d markdown
+docker compose up -d search
+docker compose run --rm runner
 ```
 
 # How does it work

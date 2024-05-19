@@ -1,4 +1,6 @@
-from utils.utils import load_json, save_json, format_duration
+import sys
+sys.path.append("../common/utils")
+from utils import load_json, save_json, format_duration
 from datetime import datetime
 from os.path import join
 
@@ -96,7 +98,7 @@ def collect_elements(resource):
     save_json(pages_elements,join(CACHE_PATH,"process",resource,"elements.json"))
     return
 
-CACHE_PATH = "../../cache"
+CACHE_PATH = "../cache"
 
 if __name__ == "__main__":
     collect_elements("test-website")

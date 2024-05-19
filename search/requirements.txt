@@ -1,2 +1,4 @@
+python-dotenv
+typesense
 PyYAML
 paho-mqtt

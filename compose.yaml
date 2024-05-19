@@ -57,6 +57,20 @@ services:
     depends_on:
       - mosquitto
       - fetcher
+      - markdown
+      - search
+  search:
+    build: ./search
+    volumes:
+      - ./cache/process:/cache/process
+      - ./common/utils:/common/utils
+    environment:
+      - BROKER=mosquitto
+      - SEARCH_HOST=typesense
+      - TYPESENSE_API_KEY=${TYPESENSE_API_KEY}
+    depends_on:
+      - mosquitto
+      - typesense
   typesense:
     image: typesense/typesense:26.0
     restart: on-failure
