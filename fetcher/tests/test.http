@@ -1,0 +1,15 @@
+@host = http://127.0.0.1:8001
+POST {{host}}/fetch
+Content-Type: application/json
+
+{
+    "fetch_list": [
+        {
+            "type": "github",
+            "repository":   "HomeSmartMesh/website",
+            "ref":  "main",
+            "path": "repos",
+            "filter":   "content/3dprinting/**/*"
+        }
+    ]
+}

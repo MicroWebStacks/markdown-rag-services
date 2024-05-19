@@ -1,0 +1,84 @@
+services:
+  diagrams-viewer:
+    build:
+      context: ./diagrams-viewer
+      args:
+        KROKI_RENDERER_URL: https://localhost:7040/
+    ports:
+      - 9000:80
+    depends_on:
+      - kroki
+    profiles: ["diagrams"]
+  fetcher:
+    build: ./copper/fetcher
+    volumes:
+      - ./cache/fetch:/fetch
+    depends_on:
+      - mosquitto
+  markdown:
+    build: ./services/markdown
+    volumes:
+      - ./cache/fetch:/fetch
+      - ./cache/process:/process
+      - ./cache/web:/web
+  mosquitto:
+    build: ./copper/mosquitto
+    ports:
+      - 1883:1883
+    volumes:
+      - ./cache/log/mosquitto:/mosquitto/log
+  nginx:
+    build: ./nginx
+    volumes:
+      - ./nginx/certs:/etc/nginx/certs
+    ports:
+      - 443:443
+      - 4040:4040
+      - 7040:7040
+    depends_on:
+      - mermaid-live-editor
+      - viewer
+      - kroki
+    profiles: ["diagrams"]
+  runner:
+    build: ./copper/runner
+    volumes:
+      - ./workflow.yaml:/app/workflow.yaml
+    depends_on:
+      - fetcher
+  typesense:
+    image: typesense/typesense:26.0
+    restart: on-failure
+    ports:
+      - 8108:8108
+    volumes:
+      - ./cache/data/typesense:/data
+    environment:
+      - TYPESENSE_API_KEY=${TYPESENSE_API_KEY}
+    command: '--data-dir /data --enable-cors'
+  kroki:
+    image: yuzutech/kroki
+    ports:
+      - 7000:8000
+    environment:
+      - KROKI_BLOCKDIAG_HOST=blockdiag
+      - KROKI_MERMAID_HOST=mermaid
+      - KROKI_BPMN_HOST=bpmn
+      - KROKI_DIAGRAMSNET_HOST=diagramsnet
+    depends_on:
+      - blockdiag
+      - mermaid
+      - bpmn
+    profiles: ["diagrams"]
+  blockdiag:
+    image: yuzutech/kroki-blockdiag
+    profiles: ["diagrams"]
+  mermaid:
+    image: yuzutech/kroki-mermaid
+    profiles: ["diagrams"]
+  bpmn:
+    image: yuzutech/kroki-bpmn
+    profiles: ["diagrams"]
+  diagramsnet:
+    image: yuzutech/kroki-diagramsnet
+    profiles: ["diagrams"]

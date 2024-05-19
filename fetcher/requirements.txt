@@ -1,0 +1,5 @@
+python-dotenv
+PyYAML==5.3.1
+requests
+Flask
+paho-mqtt==1.6.1
