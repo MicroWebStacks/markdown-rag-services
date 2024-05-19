@@ -21,9 +21,14 @@ services:
   markdown:
     build: ./markdown
     volumes:
-      - ./cache/fetch:/fetch
-      - ./cache/process:/process
-      - ./cache/web:/web
+      - ./cache/fetch:/cache/fetch
+      - ./cache/process:/cache/process
+      - ./cache/web:/cache/web
+      - ./common/utils:/common/utils
+    environment:
+      - BROKER=mosquitto
+    depends_on:
+      - mosquitto
   mosquitto:
     build: ./mosquitto
     ports:

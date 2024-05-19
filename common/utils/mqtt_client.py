@@ -1,5 +1,6 @@
 import paho.mqtt.client as mqtt
 import json
+import os
 
 def on_connect(client, userdata, flags, rc):
     print("Connected with result code "+str(rc))
@@ -43,7 +44,7 @@ def publish(topic, data):
     return
 
 # Constants
-BROKER = 'host.docker.internal'
+BROKER = os.getenv("BROKER","localhost")
 PORT = 1883
 
 client = mqtt.Client()

@@ -3,7 +3,8 @@ FROM python:3.9-slim
 
 WORKDIR /app
 
-RUN pip install PyYAML==5.3.1 requests paho-mqtt==1.6.1
+COPY requirements.txt /app/
+RUN pip install -r requirements.txt
 
 COPY *.py /app/
 

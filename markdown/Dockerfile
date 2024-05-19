@@ -17,6 +17,5 @@ RUN pnpm astro telemetry disable
 WORKDIR /app
 RUN pip install PyYAML==5.3.1 requests paho-mqtt==1.6.1
 COPY *.py /app/
-COPY utils/*.py /app/utils/
 
-ENTRYPOINT ["python", "service.py"]
+ENTRYPOINT ["python", "markdown.py"]

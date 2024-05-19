@@ -1,7 +1,10 @@
-from utils import mqtt_client as mc
+import sys
+sys.path.append("../common/utils")
+import mqtt_client as mc
 import threading
 import subprocess
 import os
+from os.path import join
 
 def markdown_builder(topic,payload):
     print("markdown builder")
@@ -17,10 +20,10 @@ def build_website(resource,path):
     try:
         original_dir = os.getcwd()
         os.chdir("/builder")
-        os.environ['OUT_DIR']       = f'/web/{resource}'
+        os.environ['OUT_DIR']       = f'../cache/web/{resource}'
+        os.environ['STRUCTURE']     = f'../cache/process/{resource}/structure'
+        os.environ['CONTENT']       = join("../cache",path)
         os.environ['PUBLIC_BASE']   = ''
-        os.environ['STRUCTURE']     = f'/process/{resource}/structure'
-        os.environ['CONTENT']       = path
         subprocess.run("pnpm run build", shell=True, check=True)
         os.chdir(original_dir)
 
