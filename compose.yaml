@@ -10,19 +10,22 @@ services:
       - kroki
     profiles: ["diagrams"]
   fetcher:
-    build: ./copper/fetcher
+    build: ./fetcher
     volumes:
-      - ./cache/fetch:/fetch
+      - ./cache/fetch:/cache/fetch
+      - ./common/utils:/common/utils
+    environment:
+      - BROKER=mosquitto
     depends_on:
       - mosquitto
   markdown:
-    build: ./services/markdown
+    build: ./markdown
     volumes:
       - ./cache/fetch:/fetch
       - ./cache/process:/process
       - ./cache/web:/web
   mosquitto:
-    build: ./copper/mosquitto
+    build: ./mosquitto
     ports:
       - 1883:1883
     volumes:
@@ -30,7 +33,7 @@ services:
   nginx:
     build: ./nginx
     volumes:
-      - ./nginx/certs:/etc/nginx/certs
+      - ./certs:/etc/nginx/certs
     ports:
       - 443:443
       - 4040:4040
@@ -41,7 +44,7 @@ services:
       - kroki
     profiles: ["diagrams"]
   runner:
-    build: ./copper/runner
+    build: ./runner
     volumes:
       - ./workflow.yaml:/app/workflow.yaml
     depends_on:

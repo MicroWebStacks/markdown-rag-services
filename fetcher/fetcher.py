@@ -1,12 +1,15 @@
 import json
 import paho.mqtt.client as mqtt
-from utils import github as gutl
+import os
+import sys
+sys.path.append("../common/utils")
+import github as gutl
 import threading
 
 def on_connect(client, userdata, flags, rc):
     print("Connected with result code "+str(rc))
     client.subscribe("fetcher/fetch")
-    client.publish("fetcher/status","up")
+    client.publish("fetcher/status","connected")
 
 def on_message(client, userdata, msg):
     print(f"Message received on {msg.topic}")
@@ -43,14 +46,15 @@ def process_fetch_list(client,entry):
         client.publish("fetcher/error", json.dumps({"error": str(e)}))
 
 # Constants
-BROKER = 'mosquitto'
+BROKER = os.getenv("BROKER","localhost")
 PORT = 1883
-CACHE_PATH = "/fetch"
+CACHE_PATH = "../cache/fetch"
 
 client = mqtt.Client()
 client.on_connect = on_connect
 client.on_message = on_message
 
+client.will_set("fetcher/status", "disconnected", qos=2)
 client.connect(BROKER, PORT, 60)
 
 # Blocking call that processes network traffic, dispatches callbacks and handles reconnecting.

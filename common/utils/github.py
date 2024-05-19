@@ -3,7 +3,7 @@ import requests
 import zipfile
 import fnmatch
 from os.path import join
-from utils import utils as utl
+import utils as utl
 from datetime import datetime
 
 def get_repo(params, cache_path):
