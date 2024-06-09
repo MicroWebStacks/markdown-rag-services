@@ -16,17 +16,14 @@ Makrdown documents are parsed, the Abstract Syntax Tree is then used for renderi
 Those elements are the basis of a rich search using a schema and a smart LLM embeddings that allows the models to extract proper information from those elements.
 
 # Usage
-
+start all services
 ```shell
 docker compose up -d
 ```
 
-or one by one
+or just the runner which will start all other services it depends on (mosquitto, fetcher, markdown, search)
+
 ```shell
-docker compose up -d mosquitto
-docker compose up -d fetcher
-docker compose up -d markdown
-docker compose up -d search
 docker compose run --rm runner
 ```
 

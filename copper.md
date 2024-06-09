@@ -6,7 +6,7 @@ Copper offers three basic services
 - fetcher executes fetch actions such as retrieve repos from github
 - runner bootstraps execution of actions from a yaml workflow file
 
-![concept](./design/concept.drawio.svg)
+![concept](/common/design/concept.drawio.svg)
 
 # Simple Usage
 see this example repo for how to use copper in a light weight mode with a docker compose file and a workflow file
