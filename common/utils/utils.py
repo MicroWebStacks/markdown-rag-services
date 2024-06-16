@@ -6,6 +6,12 @@ import json
 import yaml
 from datetime import timedelta
 
+def make_dir(file_path):
+    path = dirname(file_path)
+    if(path):
+        makedirs(path, exist_ok=True)
+    return
+
 def load_yaml(fileName):
     with open(fileName, "r") as stream:
         try:
@@ -25,6 +31,11 @@ def save_json(data,fileName):
     jfile.write(json.dumps(data, indent=4))
     jfile.close()
     return
+
+def load_text(fileName):
+    """Read text from a file encoded in UTF-8 and return its content."""
+    with open(fileName, 'r', encoding='utf-8') as file:
+        return file.read()
 
 def save_text(data,fileName):
     path = dirname(fileName)
