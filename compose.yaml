@@ -18,6 +18,7 @@ services:
       - BROKER=mosquitto
     depends_on:
       - mosquitto
+    profiles: ["events"]
   markdown:
     build: ./markdown
     volumes:
@@ -29,6 +30,7 @@ services:
       - BROKER=mosquitto
     depends_on:
       - mosquitto
+    profiles: ["events"]
   mosquitto:
     build: ./mosquitto
     ports:
@@ -71,6 +73,7 @@ services:
     depends_on:
       - mosquitto
       - typesense
+    profiles: ["events"]
   typesense:
     image: typesense/typesense:26.0
     restart: on-failure

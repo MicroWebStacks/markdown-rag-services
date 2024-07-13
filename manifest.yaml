@@ -1,0 +1,9 @@
+fetcher:
+  - type: github
+    repository: MicroWebStacks/astro-big-doc
+    ref: main
+    filter: content/*
+    dest: test-website
+markdown:
+  - resource: test-website
+    path: /fetch/test-website/content

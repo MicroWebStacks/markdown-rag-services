@@ -80,14 +80,14 @@ two types of corss services interactions will be used :
     * can require a long time to process such as more than 30s or minutes or hours.
     * is only initiated by a single service client
     * requests do not need to be queued
-    * is needed sporadically or scheduled with jobs which preiod is necessarily bigger if not significantly bigger than the time it takes them to complete
+    * is needed sporadically or scheduled with jobs which period is necessarily bigger if not significantly bigger than the time it takes them to complete
 
 * REST API
     * suitable for fast running jobs
     * multiple instances of independent clients
     * http REST API
 
-    A fat interaction is an an operation that
+    A fast interaction is an an operation that
     * completes necessarily within less any default request timeout config
     * can be initiated by any number of independent clients
     * requests need to be queued

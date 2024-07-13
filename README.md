@@ -16,7 +16,7 @@ Makrdown documents are parsed, the Abstract Syntax Tree is then used for renderi
 Those elements are the basis of a rich search using a schema and a smart LLM embeddings that allows the models to extract proper information from those elements.
 
 # Usage
-start all services
+start all services, which will execute the runner sequence and then keeps watching events
 ```shell
 docker compose up -d
 ```
@@ -25,6 +25,12 @@ or just the runner which will start all other services it depends on (mosquitto,
 
 ```shell
 docker compose run --rm runner
+```
+
+start is events driven mode, without the runner that sequence execution at startup but rather by watching sources only.
+
+```shell
+docker compose run --profile events
 ```
 
 # How does it work
