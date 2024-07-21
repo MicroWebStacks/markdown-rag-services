@@ -12,6 +12,10 @@ const apiHandler = async (req, res, next) => {
     console.log('Request Body:', req.body);
   }
 
+  // Log all header keys
+  console.log('Header Keys:', Object.keys(req.headers));
+
+
   // Check if this is an SNS Message
   if (req.headers['x-amz-sns-message-type']) {
     // Handle SNS messages
