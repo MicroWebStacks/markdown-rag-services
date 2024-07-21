@@ -1,0 +1,7 @@
+
+GET http://localhost:6000/fetch
+Content-Type: application/json
+
+{
+    "test": "request"
+}
