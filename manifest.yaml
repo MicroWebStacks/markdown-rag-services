@@ -4,6 +4,10 @@ fetcher:
     ref: main
     filter: content/*
     dest: test-website
+  - type: aws_s3
+    bucket: markdown-rag
+    key: "*"
+    dest: markdown-rag
 markdown:
   - resource: test-website
     path: /fetch/test-website/content
