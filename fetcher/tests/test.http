@@ -1,4 +1,5 @@
 @host = http://127.0.0.1:8001
+@aws_sns = {{$dotenv AWS_SERVER_ENDPOINT}}
 POST {{host}}/fetch
 Content-Type: application/json
 
@@ -12,4 +13,12 @@ Content-Type: application/json
             "filter":   "content/3dprinting/**/*"
         }
     ]
+}
+
+### test post sns
+POST {{aws_sns}}
+Content-Type: application/json
+
+{
+    "test": "check"
 }
