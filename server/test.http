@@ -5,3 +5,11 @@ Content-Type: application/json
 {
     "test": "request"
 }
+
+###test cloud
+GET http://{{ip}}:6000/fetch
+Content-Type: application/json
+
+{
+    "test": "request"
+}
