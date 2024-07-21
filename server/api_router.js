@@ -27,6 +27,7 @@ const apiHandler = async (req, res, next) => {
 };
 
 const handleSNSMessage = async (snsMessage, res) => {
+  console.log(`snsMessage.Type = ${snsMessage.Type}`)
   switch (snsMessage.Type) {
     case 'SubscriptionConfirmation':
       // Confirm subscription by visiting the SubscribeURL from the SNS message
