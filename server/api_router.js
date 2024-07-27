@@ -23,7 +23,8 @@ async function handleSNSMessage(req,res){
       res.status(500).send('Error');
     }
   } else if (messageType === 'Notification') {
-    console.log("Message received:", req.body.Message);
+    console.log(`Notification from '${body.TopicArn}'`)
+    console.log(body.Message);
     res.status(200).send('Message received');
   } else {
     res.status(400).send('Unknown message type');
