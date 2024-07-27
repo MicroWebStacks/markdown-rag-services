@@ -5,11 +5,11 @@ dotenv.config()
 
 async function handleSNSMessage(req,res){
   const messageType = req.headers['x-amz-sns-message-type'];
-
+  const body = JSON.parse(req.body)//expected 'content-type': 'text/plain; charset=UTF-8'
   if (messageType === 'SubscriptionConfirmation') {
     const topicArn = req.headers['x-amz-sns-topic-arn']
     const params = {
-      Token: req.body.Token,
+      Token: body.Token,
       TopicArn: topicArn,
       AuthenticateOnUnsubscribe: "false"
     };
