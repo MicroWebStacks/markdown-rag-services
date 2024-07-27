@@ -11,6 +11,7 @@ async function handleSNSMessage(req,res){
     const params = {
       Token: req.body.Token,
       TopicArn: topicArn,
+      AuthenticateOnUnsubscribe: "false"
     };
     console.log(`setting Token '${params.Token}' and TopicArn '${params.TopicArn}'`)
     try {

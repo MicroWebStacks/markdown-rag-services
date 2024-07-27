@@ -18,6 +18,7 @@ const port = (process.env.PORT==null)?"6000":process.env.PORT
 
 const app = express()
 app.use(cors())
+app.use(express.text({ type: 'text/plain' }))
 app.use(express.json())
 
 app.use(apiRouter)
