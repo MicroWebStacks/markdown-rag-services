@@ -16,11 +16,9 @@ const protocol = (process.env.PROTOCOL==null)?"http":process.env.PROTOCOL
 const host = (process.env.HOST==null)?"0.0.0.0":process.env.HOST
 const port = (process.env.PORT==null)?"6000":process.env.PORT
 
-const app = express();
-if(process.env.ENABLE_CORS == "true"){
-    app.use(cors());      
-    console.log("\n -- !!! CORS enabled !!! -- APIs can be used from other sites --\n")
-}
+const app = express()
+app.use(cors())
+app.use(express.json())
 
 app.use(apiRouter)
 
