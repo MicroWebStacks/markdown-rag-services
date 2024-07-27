@@ -7,9 +7,10 @@ async function handleSNSMessage(req,res){
   const messageType = req.headers['x-amz-sns-message-type'];
 
   if (messageType === 'SubscriptionConfirmation') {
+    const topicArn = req.headers['x-amz-sns-topic-arn']
     const params = {
       Token: req.body.Token,
-      TopicArn: req.body.TopicArn,
+      TopicArn: topicArn,
     };
     console.log(`setting Token '${params.Token}' and TopicArn '${params.TopicArn}'`)
     try {
@@ -30,6 +31,9 @@ async function handleSNSMessage(req,res){
 
 const apiHandler = async (req, res, next) => {
   console.log(`Received "${req.method}" request for "${req.path}"`);
+  console.log(req.params)
+  console.log(req.headers)
+  console.log(req.body)
   if (req.headers['x-amz-sns-message-type']) {
     handleSNSMessage(req, res);
   }else{
