@@ -32,9 +32,9 @@ async function handleSNSMessage(req,res){
 
 const apiHandler = async (req, res, next) => {
   console.log(`Received "${req.method}" request for "${req.path}"`);
-  console.log(req.params)
-  console.log(req.headers)
-  console.log(req.body)
+  //console.log(req.params)
+  //console.log(req.headers)
+  //console.log(req.body)
   if (req.headers['x-amz-sns-message-type']) {
     handleSNSMessage(req, res);
   }else{
