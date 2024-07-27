@@ -1,52 +1,47 @@
 import express from 'express';
-import fetch from 'node-fetch';  // You may need to install node-fetch using pnpm if not already available
+import { SNSClient, ConfirmSubscriptionCommand } from '@aws-sdk/client-sns';
+import * as dotenv from 'dotenv'
+dotenv.config()
+
+async function handleSNSMessage(req,res){
+  const messageType = req.headers['x-amz-sns-message-type'];
+
+  if (messageType === 'SubscriptionConfirmation') {
+    const params = {
+      Token: req.body.Token,
+      TopicArn: req.body.TopicArn,
+    };
+    try {
+      const data = await snsClient.send(new ConfirmSubscriptionCommand(params));
+      console.log("Subscription confirmed:", data);
+      res.status(200).send('Subscription confirmed');
+    } catch (err) {
+      console.error("Error confirming subscription:", err);
+      res.status(500).send('Error');
+    }
+  } else if (messageType === 'Notification') {
+    console.log("Message received:", req.body.Message);
+    res.status(200).send('Message received');
+  } else {
+    res.status(400).send('Unknown message type');
+  }
+}
 
 const apiHandler = async (req, res, next) => {
-  console.log(`Received ${req.method} request for ${req.path}`);
-
-  // Log query parameters and body if available
-  if (req.query && Object.keys(req.query).length > 0) {
-    console.log('Query Parameters:', req.query);
-  }
-  if (req.body && Object.keys(req.body).length > 0) {
-    console.log('Request Body:', req.body);
-  }
-
-  // Log all header keys
-  console.log('Header Keys:', Object.keys(req.headers));
-
-
-  // Check if this is an SNS Message
+  console.log(`Received "${req.method}" request for "${req.path}"`);
   if (req.headers['x-amz-sns-message-type']) {
-    // Handle SNS messages
-    handleSNSMessage(req.body, res);
-  } else {
-    // If not an SNS message, continue as normal
+    handleSNSMessage(req, res);
+  }else{
     res.status(200).json({ message: 'OK' });
   }
 };
 
-const handleSNSMessage = async (snsMessage, res) => {
-  console.log("snsMessage")
-  console.log(snsMessage)
-  switch (snsMessage.Type) {
-    case 'SubscriptionConfirmation':
-      // Confirm subscription by visiting the SubscribeURL from the SNS message
-      const confirmationResponse = await fetch(snsMessage.SubscribeURL);
-      const confirmationData = await confirmationResponse.text();
-      console.log('Subscription confirmation response:', confirmationData);
-      res.status(200).json({ message: 'Subscription confirmed' });
-      break;
-    case 'Notification':
-      // Handle notifications here
-      console.log('Received notification:', snsMessage.Message);
-      res.status(200).json({ message: 'Notification processed' });
-      break;
-    default:
-      res.status(400).json({ message: 'Invalid SNS message type' });
-      break;
-  }
-};
+const snsClient = new SNSClient({ 
+  credentials: { 
+    accessKeyId: process.env.aws_access_key_id,
+    secretAccessKey: process.env.aws_secret_access_key 
+  } 
+});
 
 const apiRouter = express.Router();
 
