@@ -11,6 +11,7 @@ async function handleSNSMessage(req,res){
       Token: req.body.Token,
       TopicArn: req.body.TopicArn,
     };
+    console.log(`setting Token '${params.Token}' and TopicArn '${params.TopicArn}'`)
     try {
       const data = await snsClient.send(new ConfirmSubscriptionCommand(params));
       console.log("Subscription confirmed:", data);
@@ -37,7 +38,7 @@ const apiHandler = async (req, res, next) => {
 };
 
 const snsClient = new SNSClient({ 
-  region: process.env.region,
+  region: process.env.aws_region,
   credentials: { 
     accessKeyId: process.env.aws_access_key_id,
     secretAccessKey: process.env.aws_secret_access_key 
