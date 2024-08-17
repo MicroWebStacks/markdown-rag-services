@@ -52,8 +52,8 @@ def update_vectors_cache(new_results,model_name):
     model_cache_file = join(cache_dir, f"{model_name}.npz")
     
     if exists(model_cache_file):
-        cache = np.load(model_cache_file, allow_pickle=True)
-        cache = dict(cache)  # Convert from numpy's npz to a regular dictionary
+        #do not reaload, rely on existing load
+        cache = vectors_cache[model_name]
         nb_existing = len(cache.keys())
     else:
         makedirs(cache_dir, exist_ok=True)
@@ -75,7 +75,7 @@ def load_vectors_cache():
     for model_name in models_list:
         model_cache_file = join(root_path,f"cache/process/embeddings/{model_name}.npz")
         if(exists(model_cache_file)):
-            cache[model_name] = np.load(model_cache_file)
+            cache[model_name] = dict(np.load(model_cache_file))
             print(f"loaded '{model_name}' vectors cache file with {len(cache[model_name].keys())} vectors")
     return cache
 
