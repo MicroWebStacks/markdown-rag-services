@@ -1,0 +1,13 @@
+{
+    "name": "markdown-parser-example",
+    "type": "module",
+    "version": "1.0.1",
+    "description": "a parser using content-structure",
+    "main": "parse.js",
+    "author": "wassfila",
+    "license": "MIT",
+    "dependencies": {
+        "content-structure": "1.1.10",
+        "yaml": "^2.5.0"
+    }
+}

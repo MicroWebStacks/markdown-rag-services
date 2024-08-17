@@ -4,6 +4,11 @@ fetcher:
     ref: main
     filter: content/*
     dest: test-website
+  - type: github
+    repository: HomeSmartMesh/website
+    ref: main
+    filter: content/*
+    dest: home-website
   - type: aws_s3
     bucket: markdown-rag
     key: "*"
@@ -11,3 +16,5 @@ fetcher:
 markdown:
   - resource: test-website
     path: /fetch/test-website/content
+  - resource: home-website
+    path: /fetch/home-website/content

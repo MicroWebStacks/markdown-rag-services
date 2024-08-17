@@ -26,6 +26,7 @@ services:
       - ./cache/process:/process
       - ./cache/web:/web
       - ./common/utils:/common/utils
+      - ./manifest.yaml:/manifest.yaml
     environment:
       - BROKER=mosquitto
     depends_on:
@@ -61,6 +62,7 @@ services:
       - fetcher
       - markdown
       - search
+    profiles: ["events"]
   search:
     build: ./search
     volumes:

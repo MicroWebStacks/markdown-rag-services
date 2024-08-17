@@ -1,9 +1,13 @@
+import sys
+from os.path import abspath,dirname,join
+common_path = dirname(dirname(abspath(__file__)))
+sys.path.append(common_path)
+import utils as utl
 import os
 import requests
 import zipfile
 import fnmatch
 from os.path import join
-import utils as utl
 from datetime import datetime
 
 def get_repo(params, cache_path):

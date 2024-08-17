@@ -19,4 +19,4 @@ COPY requirements.txt /app/
 RUN pip install -r requirements.txt
 COPY *.py /app/
 
-ENTRYPOINT ["python", "markdown.py"]
+ENTRYPOINT ["python", "markdown.py", "build"]
