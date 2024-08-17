@@ -1,11 +1,22 @@
 import os
 from os import makedirs
-from os.path import join, isdir, abspath, basename, dirname
+from os.path import join, isdir, abspath, basename, dirname, exists
 import shutil
 import json
 import yaml
 from datetime import timedelta
 import hashlib
+from dotenv import load_dotenv
+from pathlib import Path
+
+def load_env(service_path):
+    local_env = Path(service_path) / ".env"
+    global_env = Path(service_path).parent / ".env"
+    if(exists(global_env)):
+        load_dotenv(global_env)
+    if(exists(local_env)):
+        load_dotenv(local_env,override=True)
+    return
 
 def short_md5(text):
     hash_obj = hashlib.md5(text.encode('utf-8'))
@@ -105,7 +116,7 @@ def format_size(bytes):
     # Join all non-zero results
     return " ".join(results) if results else "0 KB"
 
-def format_duration(duration: timedelta):
+def date_time_text(duration: timedelta):
     # Ensure that the duration is non-negative
     duration = abs(duration)
     # Extract days, seconds, and microseconds from the timedelta object
@@ -133,3 +144,20 @@ def format_duration(duration: timedelta):
         text += f"{milliseconds} ms "
 
     return text.strip()  # Remove any trailing space
+
+def time_text(duration):
+    duration = abs(duration)
+    milliseconds = int((duration - int(duration)) * 1000)
+    seconds = int(duration) % 60
+    minutes = (int(duration) // 60) % 60
+    hours = (int(duration) // 60) // 60
+    text = ""
+    if(hours > 0):
+        text += f"{hours} h "
+    if(minutes > 0):
+        text += f"{minutes} mn "
+    if(seconds > 0):
+        text += f"{seconds} s "
+    if(milliseconds > 0):
+        text += f"{milliseconds} ms "
+    return text

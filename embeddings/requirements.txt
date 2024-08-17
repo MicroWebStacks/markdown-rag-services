@@ -7,3 +7,4 @@ sentence-transformers
 torch
 torchvision
 torchaudio
+openai

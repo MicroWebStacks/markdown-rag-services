@@ -17,6 +17,8 @@ def embed_one_resource(resource_name):
     return
 
 manifest = utl.load_yaml(join(root_path,"manifest.yaml"))
-model_name = "all-MiniLM-L6-V2"
+model_name = "text-embedding-3-small"
+resource = "home-website"
 if __name__ == "__main__":
-    embed_one_resource("home-website")
+    utl.load_env(service_path)
+    embed_one_resource(resource)

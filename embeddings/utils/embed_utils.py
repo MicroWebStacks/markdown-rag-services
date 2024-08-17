@@ -7,6 +7,8 @@ import numpy as np
 
 
 def print_vectors_dim(np_vectors):
+    if(len(np_vectors) == 0):
+        return
     vector_dims = [len(vector) for vector in np_vectors]
     if all(dim == vector_dims[0] for dim in vector_dims):
         print(f"vectors dimension: {vector_dims[0]}")
@@ -14,7 +16,7 @@ def print_vectors_dim(np_vectors):
         print(f"vectors dimensions: min {min(vector_dims)} max {max(vector_dims)}")
     return
 
-def embed_chunk_list(chunks,model_name,use_cache=True):
+def embed_chunk_list(chunks,model_name,cache_only=False):
     new_payloads = []
     new_hashes = []
     cached_results = {}
@@ -22,11 +24,11 @@ def embed_chunk_list(chunks,model_name,use_cache=True):
     if(model_name in vectors_cache):
         cache = vectors_cache[model_name]
     else:
-        use_cache = False
+        cache = None
 
     for chunk in chunks:
         if (("payload" in chunk) and ("hash" in chunk)):
-            if (use_cache and (chunk["hash"] in cache)):
+            if (cache and (chunk["hash"] in cache)):
                 cached_results[chunk["hash"]] = cache[chunk["hash"]]
             else:
                 new_payloads.append(chunk["payload"])
@@ -36,6 +38,9 @@ def embed_chunk_list(chunks,model_name,use_cache=True):
     if(cached_results):
         print(f"cached_results {len(cached_results.keys())} entries in cache")
     if(new_payloads):
+        if(cache_only):
+            print(f"cache_only, would need to encode {len(new_payloads)} new text entries with a total of {tokens} tokens")
+            return cached_results
         print(f"start encoding {len(new_payloads)} text entries with a total of {tokens} tokens")
         np_vectors = sutl.text_list_encode(new_payloads,model_name)
         new_results = {new_hashes[i]: np_vectors[i] for i in range(len(new_payloads))}
@@ -80,16 +85,21 @@ def load_vectors_cache():
     return cache
 
 models_list = [
-    "all-MiniLM-L6-V2"
+    "all-MiniLM-L6-V2",
+    "all-mpnet-base-v2",
+    "text-embedding-3-small",
+    "text-embedding-3-large"
 ]
 
-providers = {"SentenceTransformer":[
-            "all-MiniLM-L6-V2"
-        ],
-        "openai":[
-            "text-embedding-3-small",
-            "text-embedding-3-large"
-        ]
-    }
+providers = {
+    "SentenceTransformer":[
+            "all-MiniLM-L6-V2",
+            "all-mpnet-base-v2"
+    ],
+    "openai":[
+        "text-embedding-3-small",
+        "text-embedding-3-large"
+    ]
+}
 
 vectors_cache = load_vectors_cache()
