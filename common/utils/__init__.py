@@ -5,6 +5,12 @@ import shutil
 import json
 import yaml
 from datetime import timedelta
+import hashlib
+
+def short_md5(text):
+    hash_obj = hashlib.md5(text.encode('utf-8'))
+    hash_hex = hash_obj.hexdigest()
+    return hash_hex[:8]
 
 def make_dir(file_path):
     path = dirname(file_path)
@@ -101,8 +107,7 @@ def format_size(bytes):
 
 def format_duration(duration: timedelta):
     # Ensure that the duration is non-negative
-    if duration < timedelta(0):
-        duration = -duration
+    duration = abs(duration)
     # Extract days, seconds, and microseconds from the timedelta object
     days = duration.days
     seconds = duration.seconds

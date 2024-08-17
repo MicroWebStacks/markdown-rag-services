@@ -1,0 +1,9 @@
+PyYAML==6.0
+openai
+python-dotenv
+tiktoken
+numpy
+sentence-transformers
+torch
+torchvision
+torchaudio
