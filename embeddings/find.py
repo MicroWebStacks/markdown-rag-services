@@ -25,7 +25,6 @@ def find_similar_entries(query_text, top_k=5):
         print(f"{hashes[k['index']]} : {k['similarity']}")
     return
 
-manifest = utl.load_yaml(join(root_path,"manifest.yaml"))
 model_name = "text-embedding-3-small"
 #model_name = "all-mpnet-base-v2"
 #model_name = "all-MiniLM-L6-V2"
