@@ -25,10 +25,13 @@ def find_similar_entries(query_text, top_k=5):
         print(f"{hashes[k['index']]} : {k['similarity']}")
     return
 
-model_name = "text-embedding-3-small"
+
+#"all-MiniLM-L6-v2",     "all-mpnet-base-v2",     "text-embedding-3-small",     "text-embedding-3-large"
+#model_name = "text-embedding-3-small"
 #model_name = "all-mpnet-base-v2"
-#model_name = "all-MiniLM-L6-V2"
+model_name = "all-MiniLM-L6-v2"
 resource = "home-website"
 if __name__ == "__main__":
     utl.load_env(service_path)
+    sutl.create_models([model_name])
     find_similar_entries("This is a low power sensor")

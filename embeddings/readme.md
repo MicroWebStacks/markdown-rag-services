@@ -22,17 +22,25 @@ docker push 031028648877.dkr.ecr.eu-central-1.amazonaws.com/microweb-containers:
 
 * Step 2 : Create and Configure the Lambda
     * Memory size tbd e.g. 512 BM
-    * env var HF_HOME = /tmp
 
 ## excutions
-* 512MB  44s
-* 1024MB 10s
-* 2048MB  7s
+|memory |cold | warm |
+|------|-----|-----|
+|780 / 2048  MB| 17 s | 13 ms|
 
-* 2048MB
-    * init duration : 22s: model load 3.5s, encode 11.5s
-    * folloups 15ms
+First boot
 
-cold starts : 22s ~ 17s
-warm starts : 14ms ~ 20ms
+* Duration: 9231.42 ms
+* Billed Duration: 17242 ms
+* Memory Size: 2048 MB
+* Max Memory Used: 779 MB
+* Init Duration: 8009.97 ms
+* model load 600 ms
+* first encode call 9 s : this is a cloud only delay => Init Duration
 
+Cold reboot
+* Duration: 534.84 ms
+* Billed Duration: 5461 ms
+* Memory Size: 2048 MB
+* Max Memory Used: 779 MB
+* Init Duration: 4926.14 ms	

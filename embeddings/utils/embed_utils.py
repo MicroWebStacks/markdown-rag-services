@@ -85,7 +85,7 @@ def load_vectors_cache():
     return cache
 
 models_list = [
-    "all-MiniLM-L6-V2",
+    "all-MiniLM-L6-v2",
     "all-mpnet-base-v2",
     "text-embedding-3-small",
     "text-embedding-3-large"
@@ -93,7 +93,7 @@ models_list = [
 
 providers = {
     "SentenceTransformer":[
-            "all-MiniLM-L6-V2",
+            "all-MiniLM-L6-v2",
             "all-mpnet-base-v2"
     ],
     "openai":[

@@ -2,6 +2,7 @@ import json
 from sentence_transformers import SentenceTransformer
 import time
 import warnings
+from os.path import abspath,dirname,join,exists
 # Suppress specific FutureWarning from transformers
 warnings.filterwarnings("ignore", message="`clean_up_tokenization_spaces` was not set. It will be set to `True` by default.", category=FutureWarning)
 
@@ -23,9 +24,14 @@ def time_text(duration):
     return text
 
 start = time.time()
-print(f"Start Model init")
-model = SentenceTransformer('all-MiniLM-L6-v2')
-print(f"Finish Model init after {time_text(time.time()-start)}")
+model_name = 'all-MiniLM-L6-v2'
+print(f"Start loading model '{model_name}'")
+model_path = join("/cache/models",model_name)
+if(not exists(model_path)):
+    print(f"model path not found '{model_path}'")
+    exit(1)
+model = SentenceTransformer(model_path,local_files_only=True)
+print(f"Loaded model in {time_text(time.time()-start)}")
 
 def lambda_handler(event, context):
     start = time.time()

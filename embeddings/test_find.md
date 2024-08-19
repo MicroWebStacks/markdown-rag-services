@@ -1,5 +1,5 @@
 (venv) D:\Dev\MicroWebStacks\markdown-rag-services\embeddings>python find_similar.py
-find similarities in home-website using all-MiniLM-L6-V2
+find similarities in home-website using all-MiniLM-L6-v2
 loaded 2222 embeddings
 5 similarities found in 14 ms
 Similarities

@@ -32,8 +32,7 @@ def text_list_encode_in_batches(text_list, model_name, batch_size=200):
             total_tokens += response.usage.total_tokens
     return results,total_tokens
 
-def text_list_encode(text_list,model_name="all-MiniLM-L6-V2"):
-    create_models()
+def text_list_encode(text_list,model_name="all-MiniLM-L6-v2"):
     if(model_name in providers["SentenceTransformer"]):
         results = models[model_name].encode(text_list, normalize_embeddings=True, show_progress_bar=True)
     elif(model_name in providers["openai"]):
@@ -41,8 +40,7 @@ def text_list_encode(text_list,model_name="all-MiniLM-L6-V2"):
         print(f"openai total used tokens : {total_tokens}")
     return results
 
-def text_encode(text,model_name="all-MiniLM-L6-V2"):
-    create_models()
+def text_encode(text,model_name="all-MiniLM-L6-v2"):
     if(model_name in providers["SentenceTransformer"]):
         results = models[model_name].encode([text], normalize_embeddings=True)
         result = results[0]
@@ -63,32 +61,27 @@ def similarity(query_embedding, documents_embeddings,top_k):
     top_k_entries = sorted_pairs[:top_k]
     return top_k_entries
 
-def model_similarity(query_embedding, documents_embeddings,model_name="all-MiniLM-L6-V2"):
-    create_models()
+def model_similarity(query_embedding, documents_embeddings,model_name="all-MiniLM-L6-v2"):
     similarity = models[model_name].similarity(query_embedding, documents_embeddings)
     return similarity[0]
 
-def create_models():
+def create_models(models_list):
     global client
     global models
     if(client is not None):
         return
     for model_name in models_list:
         if(model_name in providers["SentenceTransformer"]):
-            models[model_name] = SentenceTransformer(model_name)
+            model_path = join(root_path,"cache/models",model_name)
+            start = time.time()
+            models[model_name] = SentenceTransformer(model_path)
+            print(f"created model '{model_name}' in {utl.time_text(time.time()-start)}")
         elif((model_name in providers["openai"]) and client is None):
             client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
     return models
 
-models_list = [
-    "all-MiniLM-L6-V2",
-    "all-mpnet-base-v2",
-    "text-embedding-3-small",
-    "text-embedding-3-large"
-]
-
 providers = {"SentenceTransformer":[
-            "all-MiniLM-L6-V2",
+            "all-MiniLM-L6-v2",
             "all-mpnet-base-v2"
         ],
         "openai":[
